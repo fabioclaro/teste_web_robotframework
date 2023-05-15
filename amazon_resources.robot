@@ -38,8 +38,31 @@ Digitar o nome de produto "${PRODUTO}" no campo de pesquisa
 Clicar no botão de pesquisa
     Click Element    locator=nav-search-submit-button
 
-Verificar o resultado da pesquisa se esta listando o produto "${PRODUTO}"
+Verificar o resultado da pesquisa se está listando o produto "${PRODUTO}"
     Wait Until Element Is Visible    locator=(//span[contains(.,'${PRODUTO}')])[2]
+
+Adicionar o produto "Console Xbox Series S" no carrinho
+    Click Element    locator=//img[contains(@alt,'Console Xbox Series S')]
+    Click Button    locator=add-to-cart-button
+
+Verificar se o produto Console "${PRODUTO}" foi "${ADICIONADO}" com sucesso
+    Wait Until Element Is Visible    locator=//span[@class='a-size-medium-plus a-color-base sw-atc-text a-text-bold'][contains(.,'${ADICIONADO}')]
+    Wait Until Element Is Visible    locator=//span[@class='a-size-base'][contains(.,'Xbox Series S')]
+
+Remover o produto "${PRODUTO}" do carrinho
+    Click Element    locator=//a[contains(@aria-label,'1 item no carrinho')]
+    Wait Until Element Is Visible    locator=//h1[contains(.,'Carrinho de compras')]
+    Click Element    locator=//input[@value='Excluir']
+    Wait Until Element Is Visible    locator=(//a[contains(.,'${PRODUTO}')])[1]
+
+Verificar se o carrinho fica vazio
+    Wait Until Element Is Visible    locator=//h1[@class='a-spacing-mini a-spacing-top-base'][contains(.,'Seu carrinho de compras da Amazon está vazio.')]
+
+    
+
+
+
+
 
 # GHERKIN STEPS
 
@@ -67,4 +90,4 @@ Então o título da página deve ficar "Amazon.com.br : Xbox Series S"
     Verificar se o título da página fica "Amazon.com.br : Xbox Series S"
 
 E um produto da linha "Xbox Series S" deve ser mostrado na página
-    Verificar o resultado da pesquisa se esta listando o produto "Console Xbox Series S"
+   Verificar o resultado da pesquisa se está listando o produto "Console Xbox Series S"
